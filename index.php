@@ -112,12 +112,10 @@
                 while ($row = mysqli_fetch_assoc($result)) {
 
                     $book_discription = substr($row['book-discription'], 0, 120) . '...';
-
-
                     echo "
                         <div class='book-parent'>
                             <div class='book-image'>
-                                <img src='{$row['book-image']}'> 
+                                <img src='admin/books/{$row['book_image']}'> 
                             </div>
                             <div class='book-name--issue-price--discription--issue-btn'>
                                 <span class='book-name'>{$row['book-name']}</span>

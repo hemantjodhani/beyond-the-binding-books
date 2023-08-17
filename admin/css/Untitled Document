@@ -1,0 +1,14 @@
+.add-user-admin,.add-book{
+    margin: 0 auto;
+    width: 500px;
+    margin-top: 50px;
+}
+
+.add-user-admin form button,.add-book form button{
+    display: block;
+    margin: 0 auto;
+}
+
+.add-book{
+    /* display: none; */
+}

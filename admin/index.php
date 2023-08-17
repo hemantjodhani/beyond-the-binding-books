@@ -1,3 +1,27 @@
+<?php include '../includes/db.php' ;
+
+if (isset($_POST['create-book'])) {
+    $bookName = $_POST['book-name'];
+    $bookDescription = $_POST['book-description']; // Updated variable name
+    $perDayPrice = $_POST['book-per-day-price'];
+    $bookImage = $_FILES['book-image']['name'];
+    $bookImageTemp = $_FILES['book-image']['tmp_name'];
+    $bookCategory = $_POST['book-category'];
+    echo $bookDescription;
+    move_uploaded_file($bookImageTemp, "book-images/$bookImage");
+    $query = "INSERT INTO books (book_name, book_description, book_per_day_price, book_image, book_category)";
+    $query .= " VALUES ('$bookName', '$bookDescription', $perDayPrice, '$bookImage', '$bookCategory')";
+
+    $result = mysqli_query($connection, $query);
+
+    if (!$result) {
+        die("Query FAILED" . mysqli_error($connection));
+    } else {
+        echo "<p class='bg-success'>Book Added</p>";
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,17 +40,10 @@
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/7cfac6840d.js" crossorigin="anonymous"></script>
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -153,43 +170,18 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="#"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="#"><i class='fa fa-user-circle-o' style="margin-right: 5px;"></i> Add user</a>
                     </li>
+
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="active">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                        <a href="#"><i class='fa-solid fa-note-sticky' style="margin-right: 5px;"></i>Add book</a>
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </nav>
 
         <div id="page-wrapper">
@@ -205,7 +197,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-file"></i> Blank Page
@@ -219,12 +211,56 @@
             <!-- /.container-fluid -->
 
         </div>
-        <!-- /#page-wrapper -->
+        <div class="add-user-admin">
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
 
+                <div class="form-group">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+
+                <div class="form-group">
+                    <select name="" required>
+                        <option>Select user type</option>
+                        <option value="customer">Customer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+
+        <div class="add-book">
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="book-name" placeholder="Book Name" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="book-description" cols="59" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="number" min="10" max="30" class="form-control" name="book-per-day-price" placeholder="Per Day Price" required>
+                </div>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="book-image" required>
+                </div>
+                <div class="form-group">
+                    <select name="book-category" class="form-control" required>
+                        <option value="" disabled selected>Select Book Category</option>
+                        <option value="crime">Crime</option>
+                    </select>
+                </div>
+                <button name="create-book" type="submit" class="btn btn-primary">Add book</button>
+            </form>
+        </div>
     </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
