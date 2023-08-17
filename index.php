@@ -1,4 +1,22 @@
 <?php include 'includes/db.php' ?>
+<?php include 'includes/functions.php' ?>
+    <?php
+        if(isset($_POST['login-form'])){
+            $user = $_POST["username"];
+            $pass = $_POST ["password"];
+            $query = "SELECT * FROM users WHERE username='$user'";
+            $result = mysqli_query($connection , $query);
+            $row = mysqli_fetch_assoc($result);
+
+            if($row['user-password'] == $pass){
+                session_start();
+                if(isset($_SESSION)){
+                    $_SESSION["username"] = $user;
+                }
+            }
+            
+        };
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +63,7 @@
                         </svg>
                     </div>
 
-                    <span>Howdy, Hemant Jodhani</span>
+                    <span>Howdy, <?php session_start(); echo $_SESSION["username"] ?></span>
                 </div>
             </header>
         </section>
@@ -92,6 +110,10 @@
                 $query = "SELECT * FROM books";
                 $result = mysqli_query($connection, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
+
+                    $book_discription = substr($row['book-discription'], 0, 120) . '...';
+
+
                     echo "
                         <div class='book-parent'>
                             <div class='book-image'>
@@ -99,7 +121,7 @@
                             </div>
                             <div class='book-name--issue-price--discription--issue-btn'>
                                 <span class='book-name'>{$row['book-name']}</span>
-                                <p class='book-discription'>{$row['book-discription']}</p>
+                                <p class='book-discription'>$book_discription</p>
                                 <span class='issue-price'>$ {$row['book-per-day-price']}</span>
                                 <a class='issue-btn' href='#'>Issue now</a>
                             </div>
@@ -152,7 +174,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
@@ -164,14 +186,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" name="login-form" class="btn btn-primary">Login</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- End of modal body -->
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

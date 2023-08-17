@@ -1,4 +1,5 @@
 <?php
+include 'includes/db.php';
 
 
 function query( $sql, $return_data = true ) {
@@ -33,3 +34,4 @@ function query( $sql, $return_data = true ) {
 
 	return $data;
 }
+?>
