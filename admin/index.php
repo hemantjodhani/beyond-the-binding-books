@@ -1,9 +1,6 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+include 'includes/functions.php';
+include 'includes/display_errors.php';
 session_start();
 if ($_SESSION['user_type'] !== 'admin' || $_SESSION['user_type'] == null || !$_SESSION['user_type']) {
     header("Location: ../");
@@ -11,37 +8,10 @@ if ($_SESSION['user_type'] !== 'admin' || $_SESSION['user_type'] == null || !$_S
 }
 
 if (isset($_POST['logout'])) {
-    $_SESSION['username'] = null;
-    $_SESSION['user_type'] = null;
-    header("Location: ../");
-    exit;
+    logout_handler();
 }
 ?>
-<?php include '../includes/db.php';
-
-    if (isset($_POST['create-book'])) {
-
-        $bookName = $_POST['book-name'];
-        $bookDescription = $_POST['book-description'];
-        $perDayPrice = $_POST['book-per-day-price'];
-        $bookImage = $_FILES['book-image']['name'];
-        $bookImageTemp = $_FILES['book-image']['tmp_name'];
-        $bookCategory = $_POST['book-category'];
-        move_uploaded_file($bookImageTemp, "book-images/$bookImage");
-        $bookDescription = mysqli_escape_string($connection, $bookDescription);
-        $query = "INSERT INTO books (book_name, book_description, book_per_day_price, book_image, book_category)";
-        $query .= " VALUES ('$bookName', '$bookDescription', $perDayPrice, '$bookImage', '$bookCategory')";
-
-        $result = mysqli_query($connection, $query);
-
-        if (!$result) {
-            die("Query FAILED" . mysqli_error($connection));
-        } else {
-            echo "<p class='bg-success'>Book Added</p>";
-        }
-    }
-
-?>
+<?php include 'includes/db.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -206,6 +176,10 @@ if (isset($_POST['logout'])) {
                     <li>
                         <a class="add-book-btn"><i class='fa-solid fa-note-sticky' style="margin-right: 5px;"></i>Add book</a>
                     </li>
+
+                    <li>
+                        <a class="add-category-btn"><i class='fa-solid fa-certificate' style="margin-right: 5px;"></i>Add Category</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -245,7 +219,59 @@ if (isset($_POST['logout'])) {
                             }
 
                             ?>
+                            <?php
 
+                            if (isset($_POST['create-category'])) {
+                                $catTitle = $_POST['cat_title'];
+
+                                // Escape the category title to prevent SQL injection
+                                $catTitle = mysqli_real_escape_string($connection, $catTitle);
+
+                                $query = "INSERT INTO category (cat_title) VALUES ('$catTitle')";
+                                $result = mysqli_query($connection, $query);
+
+                                if ($result) {
+                                    echo "
+                                        <div class='alert alert-success alert-dismissible'>
+                                            <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                            <strong>Successfully</strong> Category added.
+                                        </div>
+                                        ";
+                                } else {
+                                    echo "<p class='bg-danger'>Error adding category: " . mysqli_error($connection) . "</p>";
+                                }
+                            }
+                            ?>
+
+                            <?php
+                                if (isset($_POST['create-book'])) {
+                                    // book_generator();
+                                    $bookName = $_POST['book-name'];
+                                    $bookDescription = $_POST['book-description'];
+                                    $perDayPrice = $_POST['book-per-day-price'];
+                                    $bookImage = $_FILES['book-image']['name'];
+                                    $bookImageTemp = $_FILES['book-image']['tmp_name'];
+                                    $bookCategory = $_POST['book-category'];
+                                    move_uploaded_file($bookImageTemp, "book-images/$bookImage");
+                                    $bookDescription = mysqli_escape_string($connection, $bookDescription);
+                                    $query = "INSERT INTO books (book_name, book_description, book_per_day_price, book_image, book_category)";
+                                    $query .= " VALUES ('$bookName', '$bookDescription', $perDayPrice, '$bookImage', '$bookCategory')";
+                                
+                                    $result = mysqli_query($connection, $query);
+                                
+                                    if (!$result) {
+                                        die("Query FAILED" . mysqli_error($connection));
+                                    } else {
+                                        echo "
+                                        <div class='alert alert-success alert-dismissible'>
+                                            <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                            <strong>Successfully</strong> Book created.
+                                        </div>
+                                        ";
+                                    }
+                                }
+                                
+                            ?>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -313,6 +339,45 @@ if (isset($_POST['logout'])) {
                         <button name="create-book" type="submit" class="btn btn-primary">Add book</button>
                     </form>
                 </div>
+
+                <!-- add category form and table -->
+                <div class="category-form--table" style="margin-top: 20px; display:none">
+                    <div class="col-xs-8">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Category Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = "SELECT * FROM category";
+                                $cat_data = mysqli_query($connection, $query);
+                                while ($row = mysqli_fetch_assoc($cat_data)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['cat_id'] . "</td>";
+                                    echo "<td>" . $row['cat_title'] . "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- add category form -->
+                    <div class="col-xs-3">
+                        <form class="category-form" action="" method="post">
+                            <div class="form-group">
+                                <label for="cat-title">Add category</label><br>
+                                <input class="form-control" type="text" name="cat_title" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit" name="create-category" value="Add Category">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -325,4 +390,5 @@ if (isset($_POST['logout'])) {
 
     </script>
 </body>
+
 </html>
