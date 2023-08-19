@@ -1,22 +1,34 @@
 <?php include 'includes/db.php' ?>
 <?php include 'includes/functions.php' ?>
-    <?php
-        if(isset($_POST['login-form'])){
-            $user = $_POST["username"];
-            $pass = $_POST ["password"];
-            $query = "SELECT * FROM users WHERE username='$user'";
-            $result = mysqli_query($connection , $query);
-            $row = mysqli_fetch_assoc($result);
+<?php
+    session_start();
+    
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    if (isset($_POST['login-form'])) {
+        $user = $_POST["username"];
+        $pass = $_POST["password"];
+        $query = "SELECT * FROM users WHERE username='$user'";
+        $result = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($result);
 
-            if($row['user-password'] == $pass){
-                session_start();
+        if ($row && $row['user_password'] == $pass) {
+            if ($row['user_type'] == 'admin') {
+                $_SESSION["username"] = $user;
+                $_SESSION["user_type"] = $row['user_type'];
+                header('location: admin/index.php');
+                exit;
+            }
+            else {
                 if(isset($_SESSION)){
                     $_SESSION["username"] = $user;
+                    $_SESSION["user_type"] = $row['user_type'];
                 }
             }
-            
-        };
-    ?>
+        }
+    };
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +75,7 @@
                         </svg>
                     </div>
 
-                    <span>Howdy, <?php session_start(); echo $_SESSION["username"] ?></span>
+                    <span><?php if(isset($_SESSION["username"])) { echo "Howdy,"." " . $_SESSION["username"]; } else{ echo "Howdy, User"; } ?></span>
                 </div>
             </header>
         </section>
@@ -107,25 +119,25 @@
 
         <section class="all-books-here">
             <?php
-                $query = "SELECT * FROM books";
-                $result = mysqli_query($connection, $query);
-                while ($row = mysqli_fetch_assoc($result)) {
+            $query = "SELECT * FROM books";
+            $result = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
 
-                    $book_discription = substr($row['book-discription'], 0, 120) . '...';
-                    echo "
+                $book_discription = substr($row['book_description'], 0, 120) . '...';
+                echo "
                         <div class='book-parent'>
                             <div class='book-image'>
-                                <img src='admin/books/{$row['book_image']}'> 
+                                <img src='admin/book-images/{$row['book_image']}'> 
                             </div>
                             <div class='book-name--issue-price--discription--issue-btn'>
-                                <span class='book-name'>{$row['book-name']}</span>
+                                <span class='book-name'>{$row['book_name']}</span>
                                 <p class='book-discription'>$book_discription</p>
-                                <span class='issue-price'>$ {$row['book-per-day-price']}</span>
-                                <a class='issue-btn' href='#'>Issue now</a>
+                                <span class='issue-price'>$ {$row['book_per_day_price']}</span>
+                                <a class='issue-btn' href=''>Issue now</a>
                             </div>
                         </div>
                     ";
-                }
+            }
             ?>
 
         </section>

@@ -105,9 +105,6 @@ header {
     height: 250px;
     object-fit: contain;
 }
-.all-books-here{
-    margin-top: 60px;
-}
 .issue-btn{
     border-radius: 8px;
     background:#FFCE1A;
@@ -125,7 +122,6 @@ header {
     display: flex;
     gap: 32px;
     align-items: center;
-    width: 33.33%;
 }
 
 .book-name--issue-price--discription--issue-btn{
@@ -203,4 +199,9 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 30px;
+}
+.all-books-here{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
 }

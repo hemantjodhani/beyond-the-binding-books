@@ -9,6 +9,9 @@
     margin: 0 auto;
 }
 
-.add-book{
-    /* display: none; */
+.add-user-admin{
+    display: none;
+}
+.navbar-nav li a{
+    cursor: pointer;
 }
