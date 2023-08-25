@@ -24,4 +24,10 @@ function display_books(){
 		}
 }
 
+function calculateFutureDate($currentDate, $daysToAdd) {
+    $currentDateTime = new DateTime($currentDate);
+    $currentDateTime->modify("+" . $daysToAdd . " days");
+    $futureDate = $currentDateTime->format("Y-m-d");
+    return $futureDate;
+}
 ?>
