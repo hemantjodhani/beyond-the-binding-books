@@ -10,7 +10,7 @@
                         this week's new releases offer something for everyone</p>
                     <a href="#" class="subscribe-btn">Subscribe</a>
                 </div>
-
+                
                 <div class="hero-content-right">
                     <img src="template-images/Animation.jpg">
                 </div>
@@ -37,7 +37,7 @@
         <!-- Starting of section 4 -->
 
         <section class="all-books-here">
-            <?php display_books() ?>
+            <?php display_books(); ?>
         </section>
         <!-- Ending of section 4 -->
 
@@ -70,9 +70,8 @@
 
             </div>
         </section>
-
-    </div>
-
+    <!-- footer -->
+<?php include 'includes/footer.php' ?>
     <!-- modal body  -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">

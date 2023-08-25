@@ -3,6 +3,7 @@
     padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
 /* 
 img {
     max-width: 100%;
@@ -56,7 +57,7 @@ header {
     align-items: center;
 }
 
-.hero{
+.hero {
     margin-top: 68px;
     display: flex;
     justify-content: space-between;
@@ -71,7 +72,7 @@ header {
     margin-bottom: 30px;
 }
 
-.hero-content-left{
+.hero-content-left {
     width: 501px;
     color: #0D0842;
     font-size: 16px;
@@ -80,13 +81,13 @@ header {
     line-height: normal;
 }
 
-.hero-content-para{
+.hero-content-para {
     margin-bottom: 40px;
 }
 
-.subscribe-btn{
+.subscribe-btn {
     border-radius: 8px;
-    background:#FFCE1A;
+    background: #FFCE1A;
     padding: 7px 49px;
     text-decoration: none;
     color: white;
@@ -96,18 +97,20 @@ header {
     line-height: normal;
 }
 
-.genre-for-style{
+.genre-for-style {
     width: 120px;
     margin-top: 20px;
 }
-.book-image img{
+
+.book-image img {
     width: 180px;
     height: 250px;
     object-fit: contain;
 }
-.issue-btn{
+
+.issue-btn {
     border-radius: 8px;
-    background:#FFCE1A;
+    background: #FFCE1A;
     padding: 7px 49px;
     text-decoration: none;
     color: white;
@@ -118,19 +121,19 @@ header {
     width: 183px;
 }
 
-.book-parent{
+.book-parent {
     display: flex;
     gap: 32px;
     align-items: center;
 }
 
-.book-name--issue-price--discription--issue-btn{
+.book-name--issue-price--discription--issue-btn {
     display: flex;
     flex-direction: column;
     /* gap: 30px; */
 }
 
-.book-name{
+.book-name {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -138,7 +141,7 @@ header {
     margin-bottom: 15px;
 }
 
-.book-discription{
+.book-discription {
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -146,7 +149,8 @@ header {
     color: rgba(13, 8, 66, 0.52);
     margin-bottom: 15px;
 }
-.issue-price{
+
+.issue-price {
     margin-bottom: 33px;
     color: #0D0842;
     font-size: 16px;
@@ -155,23 +159,25 @@ header {
     line-height: normal;
 }
 
-.section-5{
+.section-5 {
     margin-top: 130px;
     margin-bottom: 159px;
 }
-.news-section-heading{
-    color:#0D0842;
+
+.news-section-heading {
+    color: #0D0842;
     font-size: 24px;
     font-weight: 400;
     padding-bottom: 20px;
 }
-.news{
+
+.news {
     width: 50%;
     display: flex;
     align-items: center;
 }
 
-.news-heading{
+.news-heading {
     color: #0D0842;
     font-size: 16px;
     font-style: normal;
@@ -180,13 +186,14 @@ header {
     margin-bottom: 20px;
 }
 
-.news-bar{
+.news-bar {
     width: 50px;
     height: 2px;
     background: #FFCE1A;
     margin-bottom: 25px;
 }
-.news-content{
+
+.news-content {
     color: #0D0842;
     font-size: 14px;
     font-style: normal;
@@ -195,13 +202,78 @@ header {
     width: 386px;
     margin-right: 41px;
 }
-.news-wrap{
+
+.news-wrap {
     display: flex;
     justify-content: space-between;
     gap: 30px;
 }
-.all-books-here{
+
+.all-books-here {
     margin-top: 60px;
     display: flex;
     justify-content: space-between;
+}
+
+.footer-left-content img {
+    margin-bottom: 40px;
+}
+
+.footer-left-content ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #0D0842;
+}
+.subscribe input{
+    border: none;
+    outline: none;
+    padding: 7px 73px 7px 25px;
+    border-radius: 12px;
+}
+.subscribe button{
+    border: none;
+    padding: 7px 49px;
+    background: #FFCE1A;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius:12px;
+}
+.subscribe{
+    width: 499.6px;
+    border: 1px solid #FFCE1A;
+    border-radius: 12px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.end-left-content ul{
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #0D0842;   
+}
+
+.end-of-web{
+    display: flex;
+    margin-top: 140px;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 10px;
+    border-top: 0.1px solid #0D0842;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+.end-right-content{
+    display: flex;
+    gap: 30px;
 }
