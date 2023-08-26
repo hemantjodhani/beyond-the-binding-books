@@ -31,18 +31,16 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-
-
 </head>
 
 <body>
@@ -75,9 +73,15 @@
                         </svg>
                     </div>
 
-                    <span><?php if(isset($_SESSION["username"])) { echo "Howdy,"." " . $_SESSION["username"]; } else{ echo "Howdy, User"; } ?></span>
+                    <span><?php if(isset($_SESSION["username"])) { echo "<a class='username' style='text-decoration:none ; color:black;' href='issued-book.php'>Howdy,"." " . $_SESSION["username"]."</a>"; } else{ echo "Howdy, User"; } ?></span>
                 </div>
             </header>
         </section>
         <!-- Ending of Section 1-->
 
+                            <style>
+                                .username:hover{
+                                    color: #831414 !important;
+                                    transition: 0.5s;
+                                }
+                            </style>
