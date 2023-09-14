@@ -49,11 +49,13 @@
         <section class="section-1">
             <header>
                 <div class="header-left">
-                    <img src="template-images/Menu.svg">
+                    <a href="index.php">
+                        <img src="template-images/Menu.svg">
+                    </a>
                     <div class="search-bar">
-                        <form>
-                            <input type="image" src="template-images/Search Icon.svg" alt="Submit">
-                            <input class="book-text-input" type="text" placeholder="What are you looking for?" required>
+                        <form method="post" action="search.php">
+                            <input name="search_book" type="image" src="template-images/Search Icon.svg" alt="Submit">
+                            <input name="book_name" class="book-text-input" type="text" placeholder="What are you looking for?" required>
                         </form>
                     </div>
                 </div>
@@ -73,7 +75,7 @@
                         </svg>
                     </div>
 
-                    <span><?php if(isset($_SESSION["username"])) { echo "<a class='username' style='text-decoration:none ; color:black;' href='issued-book.php'>Howdy,"." " . $_SESSION["username"]."</a>"; } else{ echo "Howdy, User"; } ?></span>
+                    <span><?php if(isset($_SESSION["username"])) { echo "<a href='./issued-book.php' class='username' style='text-decoration:none ; color:black;' href='issued-book.php'>Howdy,"." " . $_SESSION["username"]."</a>"; } else{ echo "Howdy, User"; } ?></span>
                 </div>
             </header>
         </section>
