@@ -208,11 +208,20 @@ header {
     justify-content: space-between;
     gap: 30px;
 }
-
+/* 
 .all-books-here {
     margin-top: 60px;
     display: flex;
     justify-content: space-between;
+} */
+.owl-carousel .owl-item img{
+    width: 163px!important;
+}
+
+.genre-parent{
+    display: flex;
+    margin-bottom: 70px;
+    gap: 20px;
 }
 
 .footer-left-content img {

@@ -3,24 +3,32 @@ include 'includes/db.php';
 
 function display_books(){
 	global $connection;
-	$query = "SELECT * FROM books";
+	$query = "SELECT * FROM category";
 	$result = mysqli_query($connection, $query);
 	while ($row = mysqli_fetch_assoc($result)) {
+		$query = "SELECT * FROM books WHERE book_category = '$row[cat_title]'";
+		$data = mysqli_query($connection, $query);
+		echo "<div style='margin-bottom: 50px; padding-left: 10px; border-left: 4px solid #FFCE1A;text-transform:uppercase'>$row[cat_title]</div>";
+		echo "<div class='genre-parent owl-carousel owl-theme'>";
+			while($row = mysqli_fetch_assoc($data)){
+				$book_discription = substr($row['book_description'], 0, 120) . '...';
+				echo "
+		
+						<div class='book-parent'>
+							<div class='book-image'>
+								<img src='admin/book-images/{$row['book_image']}'> 
+							</div>
+							<div class='book-name--issue-price--discription--issue-btn'>
+								<span class='book-name'>{$row['book_name']}</span>
+								<p class='book-discription'>$book_discription</p>
+								<span class='issue-price'>$ {$row['book_per_day_price']}</span>
+								<a href='book-page.php?book_id=$row[book_id]' class='issue-btn' href=''>Issue now</a>
+							</div>
+						</div>
+				";
+			}
+		echo"</div>";
 
-		$book_discription = substr($row['book_description'], 0, 120) . '...';
-		echo "
-			<div class='book-parent'>
-				<div class='book-image'>
-					<img src='admin/book-images/{$row['book_image']}'> 
-				</div>
-				<div class='book-name--issue-price--discription--issue-btn'>
-					<span class='book-name'>{$row['book_name']}</span>
-					<p class='book-discription'>$book_discription</p>
-					<span class='issue-price'>$ {$row['book_per_day_price']}</span>
-					<a href='book-page.php?book_id=$row[book_id]' class='issue-btn' href=''>Issue now</a>
-				</div>
-			</div>
-			";
 	}
 }
 

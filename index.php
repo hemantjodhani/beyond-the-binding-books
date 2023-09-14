@@ -19,20 +19,6 @@
         </section>
         <!-- Ending of Section 2-->
 
-        <!---Startig Of Section 3--->
-        <section class="section-3">
-            <div class="genre-seclector--seller-heading">
-                <span>Top Sellers</span><br>
-                <select name="genere-selecter" class="genre-for-style">
-                    <option value="">All Genres</option>
-                    <option value="">Action & Adventure</option>
-                    <option value="">Anime</option>
-                    <option value="">Biography, Autobiographies and Memoirs</option>
-                    <option value="">Business</option>
-                </select>
-            </div>
-        </section>
-        <!-- Ending of Section 3 -->
 
         <!-- Starting of section 4 -->
 
